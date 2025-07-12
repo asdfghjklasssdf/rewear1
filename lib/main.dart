@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:rewear/screens/LoginPage.dart';
 import 'firebase_options.dart';
-import 'screens/login_page.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(ReWearApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(RewearApp());
 }
 
-class ReWearApp extends StatelessWidget {
+class RewearApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ReWear',
       theme: ThemeData(primarySwatch: Colors.teal),
-      debugShowCheckedModeBanner: false,
       home: LoginPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

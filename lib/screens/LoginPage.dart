@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'admin_panel.dart';
+import 'signup_page.dart';
 import 'landing_page.dart';
+import 'admin_panel.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  bool _error = false;
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  String error = '';
 
-  Future<void> _login() async {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    final ref = FirebaseDatabase.instance.ref().child('users');
+  void login() async {
+    final ref = FirebaseDatabase.instance.ref().child("users");
     final snapshot = await ref.get();
 
     bool found = false;
@@ -26,8 +24,10 @@ class _LoginPageState extends State<LoginPage> {
       final users = Map<String, dynamic>.from(snapshot.value as dynamic);
       for (var entry in users.entries) {
         final user = Map<String, dynamic>.from(entry.value);
-        if (user['email'] == email && user['password'] == password) {
+        if (user['email'] == emailController.text.trim() &&
+            user['password'] == passController.text.trim()) {
           found = true;
+
           if (user['isAdmin'] == true) {
             Navigator.pushReplacement(
               context,
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     if (!found) {
-      setState(() => _error = true);
+      setState(() => error = 'Invalid email or password');
     }
   }
 
@@ -58,14 +58,21 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             Text("Login", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-            TextField(controller: _emailController, decoration: InputDecoration(labelText: 'Email')),
-            TextField(controller: _passwordController, decoration: InputDecoration(labelText: 'Password'), obscureText: true),
+            TextField(controller: emailController, decoration: InputDecoration(labelText: 'Email')),
+            TextField(controller: passController, obscureText: true, decoration: InputDecoration(labelText: 'Password')),
             SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _login,
-              child: Text("Login"),
+            ElevatedButton(onPressed: login, child: Text('Login')),
+            if (error.isNotEmpty)
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(error, style: TextStyle(color: Colors.red)),
+              ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) => SignUpPage()));
+              },
+              child: Text("Don't have an account? Sign up"),
             ),
-            if (_error) Text("Invalid credentials", style: TextStyle(color: Colors.red)),
           ],
         ),
       ),

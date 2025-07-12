@@ -1,9 +1,18 @@
+name: rewear
+description: A community clothing exchange app
+
+# Set the Dart SDK version
+environment:
+  sdk: '>=3.6.0 <4.0.0'
+
 dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^2.27.0
-  firebase_auth: ^4.17.4
-  cloud_firestore: ^4.15.4
-  firebase_storage: ^11.7.4
-  image_picker: ^1.1.0
-  uuid: ^4.3.3
+  firebase_database: ^10.4.3
+
+  # Optional UI support
+  cupertino_icons: ^1.0.2
+
+flutter:
+  uses-material-design: true

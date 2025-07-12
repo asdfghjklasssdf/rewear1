@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "312554347475",
+    "project_id": "rewear-4bffc",
+    "storage_bucket": "rewear-4bffc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312554347475:android:91394f8f4a724833052d26",
+        "android_client_info": {
+          "package_name": "com.example.rewear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNGO5XcR1LMfKz8T4NS1TLQAigRuhloQ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
